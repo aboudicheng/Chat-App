@@ -3,6 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Delete from 'material-ui/svg-icons/action/delete';
+import CircularProgress from 'material-ui/CircularProgress';
 //import ContentSend from 'material-ui/svg-icons/content/send';
 import firebase from '../config/fire'
 
@@ -12,7 +13,8 @@ class Home extends Component {
 
         this.state = {
             messages: [],
-            open: false
+            open: false,
+            isLoading: true,
         };
 
         this.onAddMessage = this.onAddMessage.bind(this);
@@ -48,15 +50,23 @@ class Home extends Component {
 
         let message
 
+        messagesRef.on('value', snapshot => {
+            if (!snapshot.exists()) {
+                this.setState({
+                    isLoading: false,
+                })
+            }
+        })
+
         messagesRef.on('child_added', snapshot => {
             if (typeof snapshot.val() === 'object') {
                 message = { text: snapshot.val().text, user: snapshot.val().user, id: snapshot.key };
 
                 this.setState(prevState => ({
                     messages: [...prevState.messages, message],
+                    isLoading: false,
                 }));
             }
-            console.log("child added")
         });
 
         messagesRef.on('child_changed', snapshot => {
@@ -141,6 +151,7 @@ class Home extends Component {
         ];
 
         let side;
+        const { isLoading } = this.state
 
         return (
             <div>
@@ -161,6 +172,7 @@ class Home extends Component {
                         </MuiThemeProvider>
                     </h3>
                     <ul className="chats" ref="chats">
+                    <MuiThemeProvider>{isLoading ? <CircularProgress size={50} thickness={4} /> : <div></div>}</MuiThemeProvider>
                         {this.state.messages.map(message =>
                             <div>
                                 <div style={{ display: "none" }}>{message.user === firebase.auth().currentUser.email ? side = "right" : side = "left"}</div>
