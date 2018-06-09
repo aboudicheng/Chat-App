@@ -70,18 +70,26 @@ class Home extends Component {
         const input = this.input.value
         const messageRef = firebase.database().ref('messages')
 
-        //messageRef.push(input)
+        let message
         const key = messageRef.push(input).key
 
         if (input !== "") {
             messageRef.on("child_added", function (snapshot) {
                 if (snapshot.key === key) {
+                    //update the database
                     messageRef.child(key).set({ text: input, user: firebase.auth().currentUser.email })
-                    //const message = { text: snapshot.val().text, user: snapshot.val().user, id: snapshot.key };
+                    //variable for updating the state
+                    message = { text: snapshot.val(), user: firebase.auth().currentUser.email, id: snapshot.key };
                 }
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code);
             });
+
+            //somehow there appears to be an extra empty element in the array
+            //so update the state without including the last element
+            this.setState(prevState => ({
+                messages: [...prevState.messages.slice(0, -1), message],
+            }));
 
             //clear input
             this.input.value = '';
