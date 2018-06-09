@@ -46,8 +46,13 @@ class Home extends Component {
             .orderByKey()
             .limitToLast(100);
 
+        let message
+
         messagesRef.on('child_added', snapshot => {
-            const message = { text: snapshot.val().text, user: snapshot.val().user, id: snapshot.key };
+            if (typeof snapshot.val() === 'object')
+                message = { text: snapshot.val().text, user: snapshot.val().user, id: snapshot.key };
+            else
+                message = { text: snapshot.val(), user: firebase.auth().currentUser.email, id: snapshot.key };
 
             this.setState(prevState => ({
                 messages: [...prevState.messages, message],

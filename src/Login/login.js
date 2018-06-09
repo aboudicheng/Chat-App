@@ -28,9 +28,14 @@ class Login extends Component {
     Signup(e) {
         e.preventDefault();
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+            firebase.auth().onAuthStateChanged(function (user) {
+                user.sendEmailVerification();
+            });
         }).catch((error) => {
             this.setState({ error: error.message })
         })
+
+
     }
 
     handleChange(e) {
@@ -52,7 +57,7 @@ class Login extends Component {
                         />
                     </MuiThemeProvider><br />
                     <MuiThemeProvider>
-                        <TextField 
+                        <TextField
                             floatingLabelText="Password"
                             value={this.state.password}
                             onChange={this.handleChange}
