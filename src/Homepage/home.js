@@ -48,20 +48,19 @@ class Home extends Component {
 
         let message
 
-        //TODO: load previous conversations
+        messagesRef.on('child_added', snapshot => {
+            if (typeof snapshot.val() === 'object') {
+                message = { text: snapshot.val().text, user: snapshot.val().user, id: snapshot.key };
 
-        // messagesRef.on('child_added', snapshot => {
-        //     if (typeof snapshot.val() === 'object')
-        //         message = { text: snapshot.val().text, user: snapshot.val().user, id: snapshot.key };
-
-        //     this.setState(prevState => ({
-        //         messages: [...prevState.messages, message],
-        //     }));
-        //     console.log("child added")
-        // });
+                this.setState(prevState => ({
+                    messages: [...prevState.messages, message],
+                }));
+            }
+            console.log("child added")
+        });
 
         messagesRef.on('child_changed', snapshot => {
-            message = { text: snapshot.val().text, user: snapshot.val().user };
+            message = { text: snapshot.val().text, user: snapshot.val().user, id: snapshot.key };
             this.setState(prevState => ({
                 messages: [...prevState.messages, message],
             }));
