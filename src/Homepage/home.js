@@ -3,6 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Delete from 'material-ui/svg-icons/action/delete';
+//import ContentSend from 'material-ui/svg-icons/content/send';
 import firebase from '../config/fire'
 
 class Home extends Component {
@@ -119,10 +120,12 @@ class Home extends Component {
             />,
         ];
 
+        let side;
+
         return (
             <div>
                 <h3>Home</h3>
-                <h4><MuiThemeProvider><FlatButton className="logout" backgroundColor="#a4c639" label="Logout" primary={true} onClick={this.Logout} /></MuiThemeProvider></h4>
+                <h4><MuiThemeProvider><FlatButton className="logout" backgroundColor="#a4c639" label="Logout" secondary={true} onClick={this.Logout} /></MuiThemeProvider></h4>
                 <div className="chatroom">
                     <h3>Ping's Chat App <MuiThemeProvider><Delete className="delete" onClick={this.handleOpen} /></MuiThemeProvider>
                         <MuiThemeProvider>
@@ -134,12 +137,15 @@ class Home extends Component {
                                 onRequestClose={this.handleClose}
                             >
                                 Delete every message?
-                  </Dialog>
+                            </Dialog>
                         </MuiThemeProvider>
                     </h3>
                     <ul className="chats" ref="chats">
                         {this.state.messages.map(message =>
-                            <li className="chat right" key={message.id} onClick={() => this.deleteMessage(message.id)}><p>{message.user}</p><br />{message.text}</li>
+                            <div>
+                                <div style={{display: "none"}}>{message.user === firebase.auth().currentUser.email ? side = "right" : side = "left"}</div>
+                                <li className={`chat ${side}`} key={message.id} onClick={() => this.deleteMessage(message.id)}><p>{message.user}:</p><br />{message.text}</li>
+                            </div>
                         )}
                         <div style={{ float: "left", clear: "both" }}
                             ref={(el) => { this.messagesEnd = el; }}>
