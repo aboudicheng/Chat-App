@@ -48,16 +48,24 @@ class Home extends Component {
 
         let message
 
-        messagesRef.on('child_added', snapshot => {
-            if (typeof snapshot.val() === 'object')
-                message = { text: snapshot.val().text, user: snapshot.val().user, id: snapshot.key };
-            else
-                message = { text: snapshot.val(), user: firebase.auth().currentUser.email, id: snapshot.key };
+        //TODO: load previous conversations
 
+        // messagesRef.on('child_added', snapshot => {
+        //     if (typeof snapshot.val() === 'object')
+        //         message = { text: snapshot.val().text, user: snapshot.val().user, id: snapshot.key };
+
+        //     this.setState(prevState => ({
+        //         messages: [...prevState.messages, message],
+        //     }));
+        //     console.log("child added")
+        // });
+
+        messagesRef.on('child_changed', snapshot => {
+            message = { text: snapshot.val().text, user: snapshot.val().user };
             this.setState(prevState => ({
                 messages: [...prevState.messages, message],
             }));
-        });
+        })
 
     }
 
@@ -79,7 +87,7 @@ class Home extends Component {
         const key = messageRef.push(input).key
 
         if (input !== "") {
-            messageRef.on("child_added", function (snapshot) {
+            messageRef.on("child_added", snapshot => {
                 if (snapshot.key === key) {
                     //update the database
                     messageRef.child(key).set({ text: input, user: firebase.auth().currentUser.email })
@@ -156,7 +164,7 @@ class Home extends Component {
                     <ul className="chats" ref="chats">
                         {this.state.messages.map(message =>
                             <div>
-                                <div style={{display: "none"}}>{message.user === firebase.auth().currentUser.email ? side = "right" : side = "left"}</div>
+                                <div style={{ display: "none" }}>{message.user === firebase.auth().currentUser.email ? side = "right" : side = "left"}</div>
                                 <li className={`chat ${side}`} key={message.id} onClick={() => this.deleteMessage(message.id)}><p>{message.user}:</p><br />{message.text}</li>
                             </div>
                         )}
