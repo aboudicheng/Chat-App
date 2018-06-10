@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Fredoka+One');
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-body {
+html, body {
+  height: 100%;
+  width: 100%;
   margin: 0;
   text-align: center;
+  background-color: rgb(116, 228, 131);
 }
 
 p {
@@ -12,9 +15,9 @@ p {
 }
 
 .App {
-  background-color: rgb(116, 228, 131);
-  height: 100vh;
-  width: 100vw;
+  height: 120vh;
+  width: 100%;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,15 +25,16 @@ p {
 }
 
 .logout {
-    margin: 20px 0;
+    margin: 1.25em 0;
 }
 
 .chatroom {
-  width: 360px;
-  height: 600px;
+  width: 80vw;
+  height: 80vh;
   background-color: rgba(0,0,0, .7);
   border-radius: 5px;
   box-shadow: 0 0 8px 0 rgba(0,0,0, 0.3);
+  margin-bottom: 5em;
 }
 
 .chatroom h3 {
@@ -38,8 +42,8 @@ p {
   background-color: rgba(30, 182, 228, 0.7);
   color: #FFF;
   margin: 0;
-  height: 40px;
-  font-size: 20px;
+  height: 5vh;
+  font-size: 1.25em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,14 +52,13 @@ p {
 .delete {
   justify-content: right;
   cursor: pointer;
-
 }
 
 .chatroom .chats {
   box-sizing: border-box;
-  padding: 0 20px;
-  margin: 10px 0 0;
-  height: 510px;
+  padding: 0 1.25em;
+  margin: 0.625em 0 0;
+  height: 69vh;
   word-wrap: break-word;
   overflow-y: scroll;
 }
@@ -63,15 +66,19 @@ p {
 .chatroom .chats .chat {
   background: rgba(155, 220, 231, 0.8);
   position: relative;
-  padding: 5px 13px;
-  font-size: 14px;
+  padding: 0.3125em 0.8125em;
+  font-size: 0.875em;
   border-radius: 10px;
   list-style: none;
   float: left;
   clear: both;
-  margin: 10px 0;
-  max-width: 200px;
+  margin: 0.625em 0;
+  max-width: 12.5em;
   cursor: pointer;
+}
+
+.text {
+  float: left;
 }
 
 .chatroom .chats .chat img {
@@ -86,6 +93,7 @@ p {
 .chatroom .chats .chat.right {
   float: right;
   clear: both;
+  background: rgba(230, 172, 134, 0.8);
 }
 
 .chatroom .chats .chat a {
@@ -94,12 +102,13 @@ p {
 }
 
 .chatroom .input {
-  height: 40px;
+  height: 5vh;
   width: 100%;
-  background: rgba(151, 71, 204, 0.7);
+  background: rgba(151, 71, 204, 1);
   display: flex;
   flex-direction: row;
   align-items: center;
+  border-radius: 5px;
 }
 
 .chatroom .input input[type="text"] {
@@ -110,17 +119,17 @@ p {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   margin-left: 10px;
-  height: 30px;
-  width: 270px;
+  height: 4vh;
+  width: 80vw;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 0.875em;
 }
 
 .chatroom .input input[type="submit"] {
   background: transparent;
   border: 1px solid rgb(155, 30, 228);
-  height: 30px;
-  width: 70px;
+  height: 4vh;
+  width: 20vw;
   font-size: 14px;
   box-sizing: border-box;
   border-top-right-radius: 5px;

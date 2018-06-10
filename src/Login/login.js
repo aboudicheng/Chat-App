@@ -20,9 +20,11 @@ class Login extends Component {
     Login(e) {
         e.preventDefault();
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+            window.location.reload()
         }).catch((error) => {
             this.setState({ error: error.message })
         })
+        
     }
 
     Signup(e) {
