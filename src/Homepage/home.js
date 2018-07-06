@@ -193,8 +193,8 @@ class Home extends Component {
                         </div>
                     </ul>
                     <form onSubmit={this.onAddMessage} className="input">
-                        <input autoFocus type="text" ref={node => this.input = node} />
-                        <input type="submit" onClick={this.focusText} />
+                        <input className="message_input" autoFocus type="text" ref={node => this.input = node} />
+                        {/* <input type="submit" onClick={this.focusText} /> */}
                     </form>
                 </div>
             </div>
