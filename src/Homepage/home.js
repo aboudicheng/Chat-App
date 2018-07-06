@@ -165,7 +165,7 @@ class Home extends Component {
             <div>
                 <h3>Home</h3>
                 <h4>Logged in as: {this.state.user}</h4>
-                <h4><MuiThemeProvider><FlatButton className="logout" backgroundColor="#a4c639" label="Logout" secondary={true} onClick={this.Logout} /></MuiThemeProvider></h4>
+                <h4><MuiThemeProvider><FlatButton className="logout" backgroundColor="rgba(189, 189, 192, 1)" label="Logout" secondary={true} onClick={this.Logout} /></MuiThemeProvider></h4>
                 <div className="chatroom">
                     <h3>Ping's Chat App <MuiThemeProvider><Delete className="delete" onClick={this.handleOpen} /></MuiThemeProvider>
                         <MuiThemeProvider>

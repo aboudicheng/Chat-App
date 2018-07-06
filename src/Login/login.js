@@ -24,7 +24,7 @@ class Login extends Component {
         }).catch((error) => {
             this.setState({ error: error.message })
         })
-        
+
     }
 
     Signup(e) {
@@ -56,6 +56,8 @@ class Login extends Component {
                             onChange={this.handleChange}
                             type="email"
                             name="email"
+                            floatingLabelStyle={{ color: "white"}}
+                            inputStyle={{ color: 'white' }}
                         />
                     </MuiThemeProvider><br />
                     <MuiThemeProvider>
@@ -65,9 +67,11 @@ class Login extends Component {
                             onChange={this.handleChange}
                             type="password"
                             name="password"
+                            floatingLabelStyle={{ color: "white"}}
+                            inputStyle={{ color: 'white' }}
                         />
                     </MuiThemeProvider><br />
-                    <MuiThemeProvider><FlatButton type="submit" label="Login" onClick={this.Login} /></MuiThemeProvider>
+                    <MuiThemeProvider><FlatButton type="submit" label="Login" onClick={this.Login} labelStyle={{ color: 'white' }} /></MuiThemeProvider>
                     <MuiThemeProvider><FlatButton type="submit" label="Sign Up" onClick={this.Signup} secondary={true} /></MuiThemeProvider>
                     <br />
 
